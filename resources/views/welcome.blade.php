@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <header class="w-full text-sm mb-6 not-has-[nav]:hidden">
+    <header class="w-full text-sm mb-6 not-has-[nav]:hidden my-4">
         <div class="container">
             @if (Route::has('login'))
                 <nav class="flex items-center justify-end gap-4">
