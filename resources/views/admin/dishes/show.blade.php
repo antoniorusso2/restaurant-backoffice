@@ -5,9 +5,10 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <div class="pt-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <a class="btn special" href="{{ route('dishes.index') }}">Indietro</a>
+            <a class="btn special" href="{{ route('dishes.edit', $dish) }}">Modifica</a>
         </div>
     </div>
 

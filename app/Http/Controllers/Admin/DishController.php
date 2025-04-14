@@ -23,7 +23,7 @@ class DishController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.dishes.create');
     }
 
     /**
@@ -45,9 +45,10 @@ class DishController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Dish $dish)
     {
-        //
+        // dd($dish);
+        return view('admin.dishes.edit', compact('dish'));
     }
 
     /**
