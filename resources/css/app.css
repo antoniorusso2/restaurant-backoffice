@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+    @apply dark:bg-gray-700 dark:text-gray-200 min-h-dvh flex flex-col;
+}
+
+.container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.row {
+    @apply flex flex-wrap -mx-4 py-4 w-full;
+}
+
+.btn {
+    @apply border-2 border-gray-400 px-4 py-2;
+}
+
+.btn.special {
+    @apply rounded-tl-xl rounded-br-xl;
+}
