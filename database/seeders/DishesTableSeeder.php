@@ -17,7 +17,7 @@ class DishesTableSeeder extends Seeder
         for ($i = 0; $i < 10; $i++) {
             $newDish = new Dish();
 
-            $newDish->name = $faker->name();
+            $newDish->name = $faker->sentence(4);
             $newDish->description = $faker->text();
             $newDish->price = $faker->randomFloat(2, 0, 100);
             // $newDish->image = $faker->imageUrl();
