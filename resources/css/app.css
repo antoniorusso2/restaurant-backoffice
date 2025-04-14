@@ -19,5 +19,10 @@ body {
 }
 
 .btn.special {
-    @apply rounded-tl-xl rounded-br-xl;
+    @apply rounded-tl-xl rounded-br-xl rounded-tr-sm rounded-bl-sm;
+}
+
+.btn.special:hover {
+    @apply border-indigo-400 text-gray-700  rounded-tr-xl rounded-bl-xl bg-gray-400;
+    @apply transition-all duration-200 ease-in-out;
 }
