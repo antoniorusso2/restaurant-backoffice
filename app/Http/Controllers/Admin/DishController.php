@@ -31,7 +31,20 @@ class DishController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $data = $request->all();
+
+        $newDish = new Dish();
+
+        $newDish->name = $data['name'];
+        $newDish->description = $data['description'];
+        $newDish->price = $data['price'];
+        // $newDish->image = $data['image'];
+
+        // dd($newDish);
+        $newDish->save();
+
+        return redirect()->route('dishes.index');
     }
 
     /**

@@ -26,3 +26,15 @@ body {
     @apply border-indigo-400 text-gray-700  rounded-tr-xl rounded-bl-xl bg-gray-400;
     @apply transition-all duration-200 ease-in-out;
 }
+
+form {
+    @apply flex flex-col gap-4;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form input[type="number"],
+form textarea {
+    @apply border-2 border-gray-400 rounded-md bg-slate-500 focus:outline-offset-1 focus:outline-indigo-400 focus:text-gray-900 dark:focus:bg-white dark:text-gray-50;
+}
