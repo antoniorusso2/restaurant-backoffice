@@ -20,7 +20,8 @@ class DishesTableSeeder extends Seeder
             $newDish->name = $faker->sentence(4);
             $newDish->description = $faker->text();
             $newDish->price = $faker->randomFloat(2, 0, 100);
-            // $newDish->image = $faker->imageUrl();
+            $newDish->category_id = random_int(1, 4);
+
             $newDish->save();
         }
     }
