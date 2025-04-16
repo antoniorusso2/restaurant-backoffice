@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Dish;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class DishController extends Controller
 {
@@ -39,7 +40,11 @@ class DishController extends Controller
         $newDish->name = $data['name'];
         $newDish->description = $data['description'];
         $newDish->price = $data['price'];
-        // $newDish->image = $data['image'];
+
+        if (isset($data['image'])) {
+            $newDish->image = Storage::disk('public')->putFile('uploads/dishes', $data['image']);
+        }
+
 
         // dd($newDish);
         $newDish->save();
@@ -67,9 +72,17 @@ class DishController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Dish $dish)
     {
-        //
+        $data = $request->all();
+        $dish->name = $data['name'];
+        $dish->description = $data['description'];
+        $dish->price = $data['price'];
+        $dish->image = $data['image'];
+
+        $dish->save();
+
+        return redirect()->route('dishes.show', $dish);
     }
 
     /**

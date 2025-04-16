@@ -3,7 +3,7 @@
 <x-app-layout>
     <div class="container">
         <h1 class="text-3xl mt-4 text-center">Crea nuovo piatto</h1>
-        <form class="flex flex-col my-4 sm:w-full md:w-1/2 mx-auto justify-center items-start p-4" action="{{ route('dishes.store') }}" method="POST">
+        <form class="flex flex-col my-4 sm:w-full md:w-1/2 mx-auto justify-center items-start p-4" action="{{ route('dishes.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <label class="" for="name">Nome</label>
@@ -13,7 +13,9 @@
             <textarea class="mb-4 w-full" name="description" id="description" cols="40" rows="2"></textarea>
 
             <label for="image">Immagine</label>
-            <input class="mb-4 w-full " type="text" id="image" name="image">
+            <div class="flex items-center flex-wrap justify-between">
+                <input class="mb-4" type="file" id="image" name="image">
+            </div>
 
             <label for="price" class="block text-sm/6 font-medium">Prezzo</label>
             {{-- tailwind css component --}}
@@ -36,7 +38,8 @@
                 </select> --}}
             </div>
 
-            <button class="btn special self-end" type="submit">Invia</button>
+            <button id="open-modal" class="btn special self-end">Invia</button>
         </form>
     </div>
+
 </x-app-layout>
