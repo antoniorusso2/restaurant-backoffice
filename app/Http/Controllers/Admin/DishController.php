@@ -93,7 +93,7 @@ class DishController extends Controller
      */
     public function destroy(Dish $dish)
     {
-        // dd('hai eliminato il piatto: ' . $dish->name);
+        dd('hai eliminato il piatto: ' . $dish->name);
 
         $dish->delete();
 
