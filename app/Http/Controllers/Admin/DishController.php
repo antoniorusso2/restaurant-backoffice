@@ -78,7 +78,10 @@ class DishController extends Controller
         $dish->name = $data['name'];
         $dish->description = $data['description'];
         $dish->price = $data['price'];
-        $dish->image = $data['image'];
+
+        if (isset($data['image'])) {
+            $dish->image = Storage::disk('public')->putFile('uploads/dishes', $data['image']);
+        }
 
         $dish->save();
 
@@ -88,8 +91,12 @@ class DishController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Dish $dish)
     {
-        //
+        // dd('hai eliminato il piatto: ' . $dish->name);
+
+        $dish->delete();
+
+        return redirect()->route('dishes.index');
     }
 }
