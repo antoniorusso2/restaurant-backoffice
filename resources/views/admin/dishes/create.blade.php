@@ -2,7 +2,14 @@
 
 <x-app-layout>
     <div class="container">
-        <h1 class="text-3xl mt-4 text-center">Crea nuovo piatto</h1>
+        <x-slot name="header">
+            <h2 class="font-semibold text-xl text-center text-gray-800 dark:text-gray-200 leading-tight">
+                {{ __('Crea nuovo piatto') }}
+            </h2>
+        </x-slot>
+        <div class="cta sm:w-full md:w-1/2 mx-auto p-4">
+            <a class="btn special" href="{{ route('dishes.index') }}">Indietro</a>
+        </div>
         <form class="flex flex-col my-4 sm:w-full md:w-1/2 mx-auto justify-center items-start p-4" action="{{ route('dishes.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
@@ -24,7 +31,7 @@
 
             </div>
 
-            <button id="open-modal" class="btn special self-end">Invia</button>
+            <button id="open-modal" class="btn special self-end mt-5">Invia</button>
         </form>
     </div>
 
