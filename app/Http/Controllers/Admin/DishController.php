@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Dish;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -24,7 +25,10 @@ class DishController extends Controller
      */
     public function create()
     {
-        return view('admin.dishes.create');
+        // categories
+        $categories = Category::all();
+
+        return view('admin.dishes.create', compact('categories'));
     }
 
     /**
