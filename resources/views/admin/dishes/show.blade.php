@@ -1,26 +1,24 @@
 <x-app-layout>
 
-    <div class="pt-12 max-w-7xl mx-auto sm:px-6 lg:px-8 flex justify-between">
-        <div class="w-full flex gap-x-5">
+    <div class="container">
+        <div class="flex gap-4 w-full justify-start flex-wrap">
             <a class="btn special" href="{{ route('dishes.index') }}">Indietro</a>
             <a class="btn special" href="{{ route('dishes.edit', $dish) }}">Modifica</a>
-        </div>
-        {{-- delete --}}
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <button class="btn special delete" id="modal-trigger">Elimina</button>
+
+            {{-- delete --}}
+            <button class="btn special delete md:ms-auto" id="modal-trigger">Elimina</button>
         </div>
     </div>
+
     @if ($dish->image)
-        <div class="img__wrap py-12 max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <img class="w-1/2" src="{{ asset('storage/' . $dish->image) }}" alt=" {{ $dish->name }} anteprima immagine">
+        <div class="img__wrap container">
+            <img class="max-w-xs" src="{{ asset('storage/' . $dish->image) }}" alt=" {{ $dish->name }} anteprima immagine">
         </div>
     @endif
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <h1 class="text-4xl">{{ $dish->name }}</h1>
-            <p class="text-thin mt-8">- {{ $dish->description }}</p>
-        </div>
+    <div class="container">
+        <h1 class="text-4xl">{{ $dish->name }}</h1>
+        <p class="text-thin mt-8">- {{ $dish->description }}</p>
     </div>
 
     {{-- modal --}}
