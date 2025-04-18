@@ -7,7 +7,7 @@
     </x-slot>
     <div class="container">
 
-        <a class="btn special" href="{{ route('categories.create') }}">Crea nuovo Piatto</a>
+        <a class="btn special" href="{{ route('categories.create') }}">Crea nuova Categoria</a>
 
     </div>
 
