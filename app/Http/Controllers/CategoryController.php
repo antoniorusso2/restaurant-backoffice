@@ -46,7 +46,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('admin.categories.edit', $category);
+        return view('admin.categories.edit', compact('category'));
     }
 
     /**
@@ -57,9 +57,11 @@ class CategoryController extends Controller
         $data = $request->all();
 
         $category->name = $data['name'];
+
+        // dd($category);
         $category->save();
 
-        return redirect()->route('admin.categories.show', $category);
+        return redirect()->route('categories.show', $category);
     }
 
     /**
