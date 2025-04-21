@@ -5,7 +5,7 @@
     <div class="card-body flex-grow flex flex-col items-start">
 
         {{-- dishes tags and categories --}}
-        <div class="categories badge p-1 border rounded my-2">
+        <div class="categories badge p-1 border rounded my-2" style="background-color: {{ $dish->category->color }}">
             <span class="text-sm font-thin">{{__('categories.' . $dish->category->name)}}</span>
         </div>
         <a class="btn special mt-auto self-end" href="{{ route('dishes.show', $dish) }}">Dettagli</a>
