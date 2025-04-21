@@ -13,7 +13,7 @@
 
     <div class="container">
         <div
-            class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg sm:grid xs:flex sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-4">
+            class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 p-4 gap-4">
             @foreach ($categories as $category)
             <x-category-card :category="$category" />
             @endforeach
