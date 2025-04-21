@@ -65,6 +65,7 @@ class CategoryController extends Controller
         $data = $request->all();
 
         $category->name = $data['name'];
+        $category->color = $data['color'];
 
         // dd($category);
         $category->save();
