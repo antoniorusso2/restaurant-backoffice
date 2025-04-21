@@ -2,13 +2,12 @@
     <div class="card-head">
         <h3 class="text-2xl font-semibold">{{ $dish->name }}</h3>
     </div>
-    <div class="card-body self-end flex-grow flex flex-col">
+    <div class="card-body flex-grow flex flex-col items-start">
 
         {{-- dishes tags and categories --}}
-        <div class="categories">
-            {{$dish->category}}
+        <div class="categories badge p-1 border rounded my-2">
+            <span class="text-sm font-thin">{{__('categories.' . $dish->category->name)}}</span>
         </div>
-
-        <a class="btn special mt-auto" href="{{ route('dishes.show', $dish) }}">Dettagli</a>
+        <a class="btn special mt-auto self-end" href="{{ route('dishes.show', $dish) }}">Dettagli</a>
     </div>
 </div>
