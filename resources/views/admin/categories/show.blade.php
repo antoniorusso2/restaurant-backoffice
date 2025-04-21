@@ -11,7 +11,9 @@
 
     <div class="container">
         <h1 class="text-4xl">{{ $category->name }}</h1>
-        {{-- <p class="text-thin mt-8">- {{ $category->description }}</p> --}}
+        <div class="badge my-4 text-xl flex gap-4">
+            Colore: <span class="block badge p-3 w-16" style="background-color: {{ $category->color }}"></span>
+        </div>
     </div>
 
     {{-- modal --}}
