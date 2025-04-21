@@ -8,6 +8,6 @@ class Category extends Model
 {
     public function dishes()
     {
-        $this->hasMany(Dish::class);
+        return $this->hasMany(Dish::class);
     }
 }
