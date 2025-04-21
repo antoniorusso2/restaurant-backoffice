@@ -5,6 +5,9 @@
     <div class="card-body self-end flex-grow flex flex-col">
 
         {{-- dishes tags and categories --}}
+        <div class="categories">
+            {{$dish->category}}
+        </div>
 
         <a class="btn special mt-auto" href="{{ route('dishes.show', $dish) }}">Dettagli</a>
     </div>

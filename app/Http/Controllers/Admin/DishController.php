@@ -18,9 +18,9 @@ class DishController extends Controller
         $dishes = Dish::all();
 
         // categories
-        $categories = Category::all();
+        // $categories = Category::all();
 
-        return view('admin.dishes.index', compact('dishes', 'categories'));
+        return view('admin.dishes.index', compact('dishes'));
     }
 
     /**
