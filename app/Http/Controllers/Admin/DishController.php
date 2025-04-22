@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Dish;
+use App\Models\Ingredient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -73,7 +74,8 @@ class DishController extends Controller
     public function edit(Dish $dish)
     {
         // dd($dish);
-        return view('admin.dishes.edit', compact('dish'));
+        $ingredients = Ingredient::all();
+        return view('admin.dishes.edit', compact('dish', 'ingredients'));
     }
 
     /**
@@ -91,6 +93,13 @@ class DishController extends Controller
         }
 
         $dish->save();
+
+        if (isset($data['ingredients'])) {
+            $dish->ingredients()->sync($data['ingredients']);
+        } else {
+            $dish->ingredients()->detach();
+        }
+
 
         return redirect()->route('dishes.show', $dish);
     }
