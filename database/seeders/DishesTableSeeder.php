@@ -23,6 +23,12 @@ class DishesTableSeeder extends Seeder
             $newDish->category_id = random_int(1, 4);
 
             $newDish->save();
+
+            // ingredients
+            $newDish->ingredients()->attach([
+                2,
+                4
+            ]);
         }
     }
 }
