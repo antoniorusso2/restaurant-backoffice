@@ -2,20 +2,27 @@
 
 namespace App\View\Components;
 
+use App\Models\Category;
 use App\Models\Dish;
+use App\Models\Ingredient;
 use Closure;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\View\Component;
 
-class DishCard extends Component
+class Card extends Component
 {
-    public Dish $dish;
+
+    public Model $item;
+    public string $route;
+
     /**
      * Create a new component instance.
      */
-    public function __construct(Dish $dish)
+    public function __construct(Model $item, string $route)
     {
-        $this->dish = $dish;
+        $this->item = $item;
+        $this->route = $route;
     }
 
     /**
@@ -23,6 +30,6 @@ class DishCard extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.dish-card');
+        return view('components.card');
     }
 }

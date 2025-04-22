@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DishController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\IngredientController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,8 @@ Route::middleware('auth')->group(function () {
 Route::resource('dishes', DishController::class);
 
 Route::resource('categories', CategoryController::class);
+
+Route::resource('ingredients', IngredientController::class);
 
 
 require __DIR__ . '/auth.php';
