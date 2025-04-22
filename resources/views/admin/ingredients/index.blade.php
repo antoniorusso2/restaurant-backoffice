@@ -7,7 +7,7 @@
     </x-slot>
     <div class="container">
 
-        <a class="btn special" href="{{ route('categories.create') }}">Crea nuova Categoria</a>
+        <a class="btn special" href="{{ route('ingredients.create') }}">Aggiungi nuovo Ingrediente</a>
 
     </div>
 
@@ -16,8 +16,7 @@
             class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 p-4 gap-4">
             {{-- @dd($ingredients) --}}
             @foreach ($ingredients as $ingredient)
-            <x-card :item="$ingredient" :route="route('ingredients.show', $ingredient)">
-            </x-card>
+            <x-card :item="$ingredient" :route="route('ingredients.show', $ingredient)" />
             @endforeach
         </div>
     </div>
