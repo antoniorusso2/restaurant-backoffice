@@ -31,7 +31,15 @@ class IngredientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $newIngredient = new Ingredient();
+
+        $newIngredient->name = $data['name'];
+
+        $newIngredient->save();
+
+        return redirect()->route('ingredients.index');
     }
 
     /**
@@ -45,24 +53,32 @@ class IngredientController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Ingredient $ingredient)
     {
-        //
+        return view('admin.ingredients.edit', compact('ingredient'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Ingredient $ingredient)
     {
-        //
+        $data = $request->all();
+
+        $ingredient->name = $data['name'];
+
+        $ingredient->save();
+
+        return redirect()->route('ingredients.show', $ingredient);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Ingredient $ingredient)
     {
-        //
+        $ingredient->delete();
+
+        return redirect()->route('ingredients.index');
     }
 }

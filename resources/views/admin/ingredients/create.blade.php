@@ -26,12 +26,6 @@
                         placeholder="Inserisci il nome dell' ingrediente">
                 </div>
 
-                {{-- description --}}
-                <div class=" form_section">
-                    <label class="my_label" for="description">Descrizione</label>
-                    <textarea class="mb-4 w-full" name="description" id="description" cols="40" rows="3"></textarea>
-                </div>
-
                 {{-- img --}}
                 {{-- <div class="form_section">
                     <label class="my_label" for="image">Immagine</label>
