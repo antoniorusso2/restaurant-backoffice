@@ -89,8 +89,12 @@ class DishController extends Controller
         $dish->price = $data['price'];
 
         if (isset($data['image'])) {
+            // delete previous image
+            Storage::disk('public')->delete($dish->image);
+
             $dish->image = Storage::disk('public')->putFile('uploads/dishes', $data['image']);
         }
+
 
         $dish->save();
 
