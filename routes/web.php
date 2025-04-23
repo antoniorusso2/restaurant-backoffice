@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\DishController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\IngredientController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Category;
+use App\Models\Dish;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -16,6 +18,13 @@ Route::get('/', function () {
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/dashboard', function () {
+
+    // $dishes = Dish::all(['id', 'name']);
+    // $categories = Category::all(['id', 'name']);
+
+    // view()->share('dishes', $dishes);
+    // view()->share('categories', $categories);
+
     return view('dashboard');
 })->name('dashboard');
 

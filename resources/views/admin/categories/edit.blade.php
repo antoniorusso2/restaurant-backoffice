@@ -8,33 +8,29 @@
     <section class="cta">
         <div class="container">
             <div class="flex justify-between">
-
                 <a class="btn special" href="{{ route('categories.index') }}">Indietro</a>
                 {{-- delete --}}
-                <button class="btn special delete" id="modal-trigger">Elimina categoria</button>
+                <button class="btn special delete" id="modal-trigger" x-data="" x-on:click.prevent="$dispatch('open-modal', 'confirm-category-deletion')">Elimina categoria</button>
             </div>
         </div>
     </section>
 
     <section class="modify_form">
         <div class="container">
-            <form class="flex flex-col my-4 w-full mx-auto justify-center items-start"
-                action="{{ route('categories.update', $category) }}" method="POST">
+            <form class="flex flex-col my-4 w-full mx-auto justify-center items-start" action="{{ route('categories.update', $category) }}" method="POST">
                 @csrf
                 @method('PUT')
 
                 {{-- name --}}
                 <div class="form_section">
                     <label class="my_label" for="name">Nome</label>
-                    <input class="mb-4 text-ellipsis w-full rounded-md" type="text" id="name" name="name"
-                        placeholder="Inserisci il nome del piatto" value="{{ $category->name }}">
+                    <input class="mb-4 text-ellipsis w-full rounded-md" type="text" id="name" name="name" placeholder="Inserisci il nome del piatto" value="{{ $category->name }}">
                 </div>
 
                 {{-- color --}}
                 <div class="form_section">
                     <label class="my_label" for="color">Colore</label>
-                    <input class="mb-4 text-ellipsis rounded-md w-44 appearance-none border-none" type="color"
-                        id="color" name="color" value="{{ $category->color }}">
+                    <input class="mb-4 text-ellipsis rounded-md w-44 appearance-none border-none" type="color" id="color" name="color" value="{{ $category->color }}">
                 </div>
 
                 {{-- submit --}}
@@ -43,25 +39,28 @@
         </div>
     </section>
 
-    {{-- modal --}}
-    <div id="modal"
-        class="modal-overlay z-10 bg-gray-600 bg-opacity-50 backdrop-filter backdrop-blur h-dvh fixed inset-0 hidden">
-        <div class="modal-content bg-opacity-50 p-4 flex flex-col justify-center items-center h-full gap-y-5">
-            <h2 class="text-3xl">Sei sicuro di voler eliminare questa categoria?</h2>
-            <p class="">Piatto: <span class="font-semibold">{{ $category->name }}</span></p>
-            <p class="texct-thin text-rose-700 uppercase">Una volta eliminata non sarà più disponibile!</p>
-            <form action="{{ route('categories.destroy', $category) }}" method="POST" class="mt-4 w-full">
-                @csrf
-                @method('DELETE')
-                <button class="btn special delete w-44 mx-auto" type="submit">Elimina</button>
-            </form>
-        </div>
-        {{-- x close icon --}}
-        <div id="modal-close" class="cursor-pointer absolute top-4 right-4 p-1 border rounded-md bg-rose-600">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-        </div>
-    </div>
+    <x-modal name="confirm-category-deletion" focusable>
+        <form method="post" action="{{ route('categories.destroy', $category) }}" class="p-6">
+            @csrf
+            @method('delete')
+
+            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                Sei sicuro di voler erliminare questa categoria?
+            </h2>
+
+            <p class="mt-1 text-sm font-semibold text-rose-600 uppercase">
+                Una volta eliminata non sarà più disponibile!
+            </p>
+
+            <div class="mt-6 flex justify-end gap-x-2" x-on:click="$dispatch('close')">
+                <button type="button" class="btn special">
+                    Annulla
+                </button>
+
+                <button class="btn special delete">
+                    Elimina
+                </button>
+            </div>
+        </form>
+    </x-modal>
 </x-app-layout>

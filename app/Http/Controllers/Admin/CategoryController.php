@@ -36,6 +36,7 @@ class CategoryController extends Controller
         $newCategory = new Category();
 
         $newCategory->name = $data['name'];
+        $newCategory->color = $data['color'];
 
         $newCategory->save();
 
