@@ -26,14 +26,15 @@
                         placeholder="Inserisci il nome del categoria" ">
                 </div>
 
-                {{-- description --}}
-                {{-- <div class=" form_section">
-                    <label class="my_label" for="description">Descrizione</label>
-                    <textarea class="mb-4 w-full" name="description" id="description" cols="40" rows="3"></textarea>
-                </div> --}}
+                {{-- color --}}
+                <div class=" form_section">
+                    <label class="my_label" for="color">Colore</label>
+                    <input class="mb-4 text-ellipsis rounded-md w-44 appearance-none border-none" type="color"
+                        id="color" name="color">
+                </div>
 
                 {{-- submit --}}
-                <button class="btn special self-end" type="submit">Invia</button>
+                <button class=" btn special self-end" type="submit">Invia</button>
             </form>
         </div>
     </section>

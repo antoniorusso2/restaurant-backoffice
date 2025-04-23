@@ -15,6 +15,10 @@
 
     <section class="modify_form">
         <div class="container">
+            <div class="instructions">
+                <p class="text-justify text-2xl text-orange-400">Inserisci i nomi degli ingredienti separati da una
+                    virgola</p>
+            </div>
             <form class="flex flex-col my-4 w-full mx-auto justify-center items-start"
                 action="{{ route('ingredients.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -22,8 +26,8 @@
                 {{-- name --}}
                 <div class="form_section">
                     <label class="my_label" for="name">Nome</label>
-                    <input class="mb-4 text-ellipsis w-full rounded-md" type="text" id="name" name="name"
-                        placeholder="Inserisci il nome dell' ingrediente">
+                    <input class="mb-4 text-ellipsis w-full rounded-md" type="text" id="names" name="names"
+                        placeholder="Ingrediente1, ingrediente2, ingrediente3">
                 </div>
 
                 {{-- img --}}

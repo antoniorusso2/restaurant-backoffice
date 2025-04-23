@@ -33,11 +33,18 @@ class IngredientController extends Controller
     {
         $data = $request->all();
 
-        $newIngredient = new Ingredient();
+        $data['names'] = explode(",", $data['names']);
 
-        $newIngredient->name = $data['name'];
+        // dd($data);
+        foreach ($data['names'] as $name) {
+            $name = trim($name);
 
-        $newIngredient->save();
+            $newIngredient = new Ingredient();
+
+            $newIngredient->name = $name;
+
+            $newIngredient->save();
+        }
 
         return redirect()->route('ingredients.index');
     }
