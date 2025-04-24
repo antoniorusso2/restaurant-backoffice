@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\IngredientController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Category;
 use App\Models\Dish;
+use App\Models\Ingredient;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -19,13 +20,11 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
 
-    // $dishes = Dish::all(['id', 'name']);
-    // $categories = Category::all(['id', 'name']);
+    $dishes = Dish::all();
+    $categories = Category::All();
+    $ingredients = Ingredient::all();
 
-    // view()->share('dishes', $dishes);
-    // view()->share('categories', $categories);
-
-    return view('dashboard');
+    return view('dashboard', compact('dishes', 'categories', 'ingredients'));
 })->name('dashboard');
 
 Route::middleware('auth')->group(function () {
