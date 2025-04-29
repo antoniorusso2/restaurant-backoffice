@@ -13,7 +13,7 @@
     @if ($dish->image)
         <div class="img__wrap container">
             <img class="max-w-xs" src="{{ asset('storage/' . $dish->image) }}" alt=" {{ $dish->name }} anteprima immagine">
-            @dd(asset('storage/' . $dish->image))
+            {{-- @dd(asset('storage/' . $dish->image)) --}}
         </div>
     @endif
 
