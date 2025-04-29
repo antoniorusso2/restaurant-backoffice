@@ -21,7 +21,7 @@
             @method('delete')
 
             <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                Sei sicuro di voler erliminare questo ingrediente?
+                Sei sicuro di voler eliminare questo ingrediente?
             </h2>
 
             <p class="mt-1 text-sm font-semibold text-rose-600 uppercase">
