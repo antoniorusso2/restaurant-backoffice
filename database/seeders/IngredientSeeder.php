@@ -24,7 +24,6 @@ class IngredientSeeder extends Seeder
             $newIngredient = new Ingredient();
 
             $newIngredient->name = $ingredient;
-            $newIngredient->quantity = random_int(1, 10);
 
             $newIngredient->save();
         }
