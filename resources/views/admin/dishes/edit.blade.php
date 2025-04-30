@@ -35,6 +35,21 @@
                     <textarea class="mb-4 w-full" name="description" id="description" cols="40" rows="3">{{ $dish->description }}</textarea>
                 </div>
 
+                {{-- category --}}
+                <div class="form_section">
+                    <label for="categories" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Seleziona una categoria
+                    </label>
+
+                    <select id="categories" name="category_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-slate-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option selected>Scegli una categoria</option>
+                        @foreach ($categories as $category)
+                            <option value={{ $category->id }} {{ $dish->category_id == $category->id ? 'selected' : '' }}>{{ __($category->name) }}</option>
+                        @endforeach
+
+                    </select>
+                </div>
+
                 {{-- img --}}
                 <div class="form_section">
                     <label class="my_label" for="image">Immagine</label>

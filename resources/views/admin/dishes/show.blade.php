@@ -19,7 +19,10 @@
 
     <div class="container">
         <div class="title_price flex justify-between items-center">
-            <h1 class="text-4xl">{{ $dish->name }}</h1>
+            <div class="name">
+                <h1 class="text-4xl">{{ $dish->name }}</h1>
+                <span class="badge rounded-sm px-3 py-1" style="background-color: {{ $dish->category->color }}">{{ $dish->category->name }}</span>
+            </div>
             <span class="text-3xl bg-emerald-500 p-2 rounded-md">€ {{ $dish->price }}</span>
         </div>
 
