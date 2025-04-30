@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Dish;
-use App\Models\Ingredient;
-use Illuminate\Http\Request;
 
 class DishController extends Controller
 {
