@@ -4,13 +4,17 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Dish;
+use App\Models\Ingredient;
 use Illuminate\Http\Request;
 
 class DishController extends Controller
 {
     public function index()
     {
-        $dishes = Dish::paginate(4);
+        // paginazione 
+        $dishes = Dish::paginate(4)
+            ->load(['category' => fn($query) => $query->select('id', 'name')]); //carica solo i nomi degli ingredienti
+
         return response()->json([
             'success' => true,
             'results' => $dishes
@@ -19,6 +23,12 @@ class DishController extends Controller
 
     public function show(Dish $dish)
     {
+        // aggiunta ingredienti
+        $dish->load([
+            'ingredients' => fn($query) => $query->select('id', 'name'),
+            'category'
+        ]);
+
         return response()->json([
             'success' => true,
             'results' => $dish

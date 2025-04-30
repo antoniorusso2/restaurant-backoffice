@@ -75,7 +75,8 @@ class DishController extends Controller
     {
         // dd($dish);
         $ingredients = Ingredient::all();
-        return view('admin.dishes.edit', compact('dish', 'ingredients'));
+        $categories = Category::all();
+        return view('admin.dishes.edit', compact('dish', 'ingredients', 'categories'));
     }
 
     /**
@@ -87,6 +88,7 @@ class DishController extends Controller
         $dish->name = $data['name'];
         $dish->description = $data['description'];
         $dish->price = $data['price'];
+        $dish->category_id = $data['category_id'];
 
         if (isset($data['image']) && $dish->image) {
 
