@@ -10,8 +10,7 @@ class DishController extends Controller
     public function index()
     {
         // paginazione 
-        $dishes = Dish::paginate(4)
-            ->load(['category' => fn($query) => $query->select('id', 'name')]); //carica solo i nomi degli ingredienti
+        $dishes = Dish::with(['category', 'ingredients'])->paginate(10);
 
         return response()->json([
             'success' => true,
