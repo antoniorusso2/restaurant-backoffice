@@ -41,7 +41,7 @@
                         Seleziona una categoria
                     </label>
 
-                    <select id="categories" name="category_id" class=" {{ $errors->has('category_id') ? 'border-red-500' : 'border-gray-300 dark:border-gray-600' }} bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-slate-700  dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <select id="categories" name="category_id" class="{{ $errors->has('category_id') ? 'border-red-500' : 'border-gray-300 dark:border-gray-600' }} bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-slate-700  dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option selected>Scegli una categoria</option>
                         @foreach ($categories as $category)
                             <option {{ old('category_id') == $category->id ? 'selected' : '' }} value={{ $category->id }}>{{ $category->name }}</option>

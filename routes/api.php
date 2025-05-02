@@ -15,4 +15,9 @@ Route::get('/', function () {
 });
 
 // dish routes
-Route::apiResource('dishes', DishController::class)->only('index', 'show');
+Route::apiResource('dishes', DishController::class)->only('index', 'show')->missing(function () {
+    return response()->json([
+        'success' => false,
+        'message' => 'Not found'
+    ], 404);
+});

@@ -2,9 +2,6 @@
 
 namespace App\View\Components;
 
-use App\Models\Category;
-use App\Models\Dish;
-use App\Models\Ingredient;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
