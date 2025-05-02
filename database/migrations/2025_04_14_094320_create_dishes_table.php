@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 100);
             $table->text('description')->nullable();
-            $table->float('price');
+            $table->double('price', 8, 2);
             $table->string('image')->nullable();
 
             $table->timestamps();

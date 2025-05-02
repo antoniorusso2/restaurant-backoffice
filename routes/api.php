@@ -15,4 +15,4 @@ Route::get('/', function () {
 });
 
 // dish routes
-Route::resource('dishes', DishController::class)->only('index', 'show');
+Route::apiResource('dishes', DishController::class)->only('index', 'show');

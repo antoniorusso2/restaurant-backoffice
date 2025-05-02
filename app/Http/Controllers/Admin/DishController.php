@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Dish;
 use App\Models\Ingredient;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -38,26 +39,38 @@ class DishController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        // dd($request->all());
-        $data = $request->all();
+        // // dd($request->all());
+        // $data = $request->all();
 
-        $newDish = new Dish();
+        // validation
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:5'],
+            'description' => ['nullable', 'string'],
+            'category_id' => ['required', 'exists:categories,id'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'price' => ['required', 'numeric'],
+        ]);
 
-        $newDish->name = $data['name'];
-        $newDish->description = $data['description'];
-        $newDish->price = $data['price'];
 
-        if (isset($data['image'])) {
-            $newDish->image = Storage::disk('public')->putFile('uploads/dishes', $data['image']);
-        }
+        dd($validated);
+
+        // $newDish = new Dish();
+
+        // $newDish->name = $validated['name'];
+        // $newDish->description = $data['description'];
+        // $newDish->price = $data['price'];
+
+        // if (isset($data['image'])) {
+        //     $newDish->image = Storage::disk('public')->putFile('uploads/dishes', $data['image']);
+        // }
 
 
-        // dd($newDish);
-        $newDish->save();
+        // // dd($newDish);
+        // $newDish->save();
 
-        return redirect()->route('dishes.index');
+        return redirect('/dishes');
     }
 
     /**
