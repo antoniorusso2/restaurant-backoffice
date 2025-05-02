@@ -20,7 +20,9 @@ class DishController extends Controller
         }
 
         // paginazione 
-        $dishes = $query->paginate(10);
+        //limite elementi per pagina (default 10)
+        $limit = $request->has('limit') ? $request->limit : 10;
+        $dishes = $query->paginate($limit);
 
         return response()->json([
             'success' => true,
