@@ -10,10 +10,17 @@ class DishController extends Controller
 {
     public function index(Request $request)
     {
-        // dd($request->all());
+        //query build con parametri di ricerca
+        //valore iniziale
+        $query = Dish::query()->with(['category', 'ingredients']);
+
+        if ($request->has('name')) {
+            // where name like %$request->name%
+            $query->where('name', 'like', '%' . $request->name . '%');
+        }
 
         // paginazione 
-        $dishes = Dish::with(['category', 'ingredients'])->paginate(10);
+        $dishes = $query->paginate(10);
 
         return response()->json([
             'success' => true,
