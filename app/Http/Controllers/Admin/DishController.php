@@ -101,6 +101,7 @@ class DishController extends Controller
      */
     public function update(Request $request, Dish $dish)
     {
+        // dd($request->all());
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:100'],
             'description' => ['nullable', 'string'],
@@ -108,6 +109,7 @@ class DishController extends Controller
             'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
             'price' => ['required', 'numeric'],
         ]);
+
 
         $dish->name = $validated['name'];
         $dish->description = $validated['description'];

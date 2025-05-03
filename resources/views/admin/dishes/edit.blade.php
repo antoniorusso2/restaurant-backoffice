@@ -26,13 +26,15 @@
                 {{-- name --}}
                 <div class="form_section">
                     <label class="my_label" for="name">Nome</label>
-                    <input class="mb-4 text-ellipsis w-full rounded-md" type="text" id="name" name="name" placeholder="Inserisci il nome del piatto" value="{{ $dish->name }}">
+                    <input class="mb-4 text-ellipsis w-full rounded-md {{ $errors->has('name') ? 'border-red-500' : 'border-gray-300 dark:border-gray-600' }}" type="text" id="name" name="name" placeholder="Inserisci il nome del piatto" value="{{ old('name', $dish->name) }}">
+                    <x-input-error :messages="$errors->get('name')" class="mt-2" />
                 </div>
 
                 {{-- description --}}
                 <div class="form_section">
                     <label class="my_label" for="description">Descrizione</label>
-                    <textarea class="mb-4 w-full" name="description" id="description" cols="40" rows="3">{{ $dish->description }}</textarea>
+                    <textarea class="mb-4 w-full {{ $errors->has('description') ? 'border-red-500' : 'border-gray-300 dark:border-gray-600' }}" name="description" id="description" cols="40" rows="3">{{ old('description', $dish->description) }}</textarea>
+                    <x-input-error :messages="$errors->get('description')" class="mt-2" />
                 </div>
 
                 {{-- category --}}
@@ -41,13 +43,13 @@
                         Seleziona una categoria
                     </label>
 
-                    <select id="categories" name="category_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-slate-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option selected>Scegli una categoria</option>
+                    <select id="categories" name="category_id" class="{{ $errors->has('category_id') ? 'border-red-500' : 'border-gray-300 dark:border-gray-600' }} bg-gray-50 border  text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-slate-700  dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option>Scegli una categoria</option>
                         @foreach ($categories as $category)
-                            <option value={{ $category->id }} {{ $dish->category_id == $category->id ? 'selected' : '' }}>{{ __($category->name) }}</option>
+                            <option value={{ $category->id }} {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ __($category->name) }}</option>
                         @endforeach
-
                     </select>
+                    <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
                 </div>
 
                 {{-- img --}}
@@ -58,7 +60,7 @@
                     @if ($dish->image)
                         <img src="{{ asset('storage/' . $dish->image) }}" alt=" {{ $dish->name }} anteprima immagine" class="w-1/4 h-1/4">
                     @endif
-
+                    <x-input-error :messages="$errors->get('image')" class="mt-2" />
                 </div>
 
                 {{-- ingredients --}}
@@ -77,7 +79,8 @@
                 {{-- price --}}
                 <div class="form_section">
                     <label class="my_label" for="price" class="block text-sm/6 font-medium">Prezzo</label>
-                    <input type="text" inputmode="decimal" id="price" name="price" pattern="[0-9]*[.,]?[0-9]*" value="{{ $dish->price }}">
+                    <input type="text" inputmode="decimal" id="price" name="price" pattern="[0-9]*[.,]?[0-9]*" value="{{ old('price', $dish->price) }}">
+                    <x-input-error :messages="$errors->get('price')" class="mx-2 mt-2" />
                 </div>
 
                 {{-- submit --}}
