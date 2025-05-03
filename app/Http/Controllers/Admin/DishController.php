@@ -32,8 +32,9 @@ class DishController extends Controller
     {
         // categories
         $categories = Category::all();
+        $ingredients = Ingredient::all();
 
-        return view('admin.dishes.create', compact('categories'));
+        return view('admin.dishes.create', compact('categories', 'ingredients'));
     }
 
     /**
@@ -41,8 +42,6 @@ class DishController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        // // dd($request->all());
-        // $data = $request->all();
 
         // validation
         $validated = $request->validate([
@@ -51,8 +50,8 @@ class DishController extends Controller
             'category_id' => ['required', 'exists:categories,id'],
             'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
             'price' => ['required', 'numeric'],
+            'ingredients' => ['nullable', 'array'],
         ]);
-
 
         // dd($validated);
 
@@ -63,13 +62,17 @@ class DishController extends Controller
         $newDish->price = $validated['price'];
         $newDish->category_id = $validated['category_id'];
 
+
         if (isset($validated['image'])) {
             $newDish->image = Storage::disk('public')->putFile('uploads/dishes', $validated['image']);
         }
 
-
         // dd($newDish);
+        //aggiungo il piatto al db
         $newDish->save();
+
+        //collego gli ingredienti
+        $newDish->ingredients()->attach($validated['ingredients']);
 
         return redirect('/dishes');
     }
@@ -98,32 +101,36 @@ class DishController extends Controller
      */
     public function update(Request $request, Dish $dish)
     {
-        $data = $request->all();
-        $dish->name = $data['name'];
-        $dish->description = $data['description'];
-        $dish->price = $data['price'];
-        $dish->category_id = $data['category_id'];
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:100'],
+            'description' => ['nullable', 'string'],
+            'category_id' => ['required', 'exists:categories,id'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'price' => ['required', 'numeric'],
+        ]);
 
-        if (isset($data['image']) && $dish->image) {
+        $dish->name = $validated['name'];
+        $dish->description = $validated['description'];
+        $dish->price = $validated['price'];
+        $dish->category_id = $validated['category_id'];
 
+        if (isset($validated['image']) && $dish->image) {
             //elimina l'immagine precedente
             Storage::disk('public')->delete($dish->image);
 
             //aggiorna l'immagine
-            $dish->image = Storage::disk('public')->putFile('uploads/dishes', $data['image']);
-        } else if (isset($data['image'])) {
-            $dish->image = Storage::disk('public')->putFile('uploads/dishes', $data['image']);
+            $dish->image = Storage::disk('public')->putFile('uploads/dishes', $validated['image']);
+        } else if (isset($validated['image'])) {
+            $dish->image = Storage::disk('public')->putFile('uploads/dishes', $validated['image']);
         }
-
 
         $dish->save();
 
-        if (isset($data['ingredients'])) {
-            $dish->ingredients()->sync($data['ingredients']);
+        if (isset($validated['ingredients'])) {
+            $dish->ingredients()->sync($validated['ingredients']);
         } else {
             $dish->ingredients()->detach();
         }
-
 
         return redirect()->route('dishes.show', $dish);
     }

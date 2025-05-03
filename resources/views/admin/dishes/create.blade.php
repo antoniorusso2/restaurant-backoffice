@@ -57,6 +57,19 @@
                     <x-input-error :messages="$errors->get('image')" class="mt-2" />
                 </div>
 
+                {{-- ingredients --}}
+                <div class="form_section">
+                    <label class="my_label" for="ingredients">Ingredienti</label>
+                    <div class="flex flex-wrap gap-4">
+                        @foreach ($ingredients as $ingredient)
+                            <div class="flex items-center ">
+                                <input type="checkbox" name="ingredients[]" id="{{ $ingredient->id }}" value="{{ $ingredient->id }}" {{ old('ingredients') && in_array($ingredient->id, old('ingredients')) ? 'checked' : '' }}>
+                                <label class=" ms-2" for="{{ $ingredient->id }}">{{ $ingredient->name }}</label>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
                 {{-- price --}}
                 <div class="form_section">
                     <label class="my_label" for="price" class="block text-sm/6 font-medium">Prezzo</label>
