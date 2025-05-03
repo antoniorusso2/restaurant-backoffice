@@ -5,13 +5,24 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Dish;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DishController extends Controller
 {
     public function index(Request $request): JsonResponse
     {
+
+        $validated = $request->validate([
+            'limit' => ['nullable', 'integer', 'min:1', 'max:20'],
+            'name' => ['nullable', 'string', 'max:150'],
+            'category' => ['nullable', 'string', 'max:50'],
+            'ingredients' => ['nullable', 'string', 'max:50'],
+            'price' => ['nullable', 'numeric', 'min:0', 'max:200'],
+        ]);
+
+        // dd($validated);
+
         //query build con parametri di ricerca
         //valore iniziale
         $query = Dish::query();
@@ -47,8 +58,8 @@ class DishController extends Controller
 
         // paginazione 
         //limite elementi per pagina (default 10)
-        // $limit = $request->filled('limit') ? $request->limit : 10;
         $limit = $request->input('limit', 10);
+
         $dishes = $query->with(['category', 'ingredients'])->paginate($limit);
 
         return response()->json([
