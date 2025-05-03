@@ -46,7 +46,7 @@
                     <select id="categories" name="category_id" class="{{ $errors->has('category_id') ? 'border-red-500' : 'border-gray-300 dark:border-gray-600' }} bg-gray-50 border  text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-slate-700  dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option>Scegli una categoria</option>
                         @foreach ($categories as $category)
-                            <option value={{ $category->id }} {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ __($category->name) }}</option>
+                            <option value={{ $category->id }} {{ $dish->category_id == $category->id ? 'selected' : '' }}>{{ __($category->name) }}</option>
                         @endforeach
                     </select>
                     <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
@@ -58,7 +58,17 @@
 
                     <input class="mb-4" type="file" id="image" name="image">
                     @if ($dish->image)
-                        <img src="{{ asset('storage/' . $dish->image) }}" alt=" {{ $dish->name }} anteprima immagine" class="w-1/4 h-1/4">
+                        <div class="img-wrap relative w-1/2 rounded-sm overflow-hidden py-4">
+                            <img src="{{ asset('storage/' . $dish->image) }}" alt=" {{ $dish->name }} anteprima immagine" class="">
+
+                            {{-- delete icon --}}
+                            <button type="button" id="modal-trigger" x-data="" x-on:click.prevent="$dispatch('open-modal', 'confirm-image-deletion')"class="absolute top-[20px] right-[5px] bg-red-400 rounded-sm p-2 cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                </svg>
+                            </button>
+
+                        </div>
                     @endif
                     <x-input-error :messages="$errors->get('image')" class="mt-2" />
                 </div>
@@ -97,7 +107,32 @@
             @method('delete')
 
             <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                Sei sicuro di voler erliminare questo piatto?
+                Sei sicuro di voler eliminare questo piatto?
+            </h2>
+
+            <p class="mt-1 text-sm font-semibold text-rose-600 uppercase">
+                Una volta eliminata non sarà più disponibile!
+            </p>
+
+            <div class="mt-6 flex justify-end gap-x-2" x-on:click="$dispatch('close')">
+                <button type="button" class="btn special">
+                    Annulla
+                </button>
+
+                <button class="btn special delete">
+                    Elimina
+                </button>
+            </div>
+        </form>
+    </x-modal>
+
+    <x-modal name="confirm-image-deletion" focusable>
+        <form method="post" action="{{ route('dishes.destroy_image', $dish) }}" class="p-6">
+            @csrf
+            @method('delete')
+
+            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                Sei sicuro di voler eliminare questa immagine?
             </h2>
 
             <p class="mt-1 text-sm font-semibold text-rose-600 uppercase">

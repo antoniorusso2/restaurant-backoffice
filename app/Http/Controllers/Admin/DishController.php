@@ -143,9 +143,26 @@ class DishController extends Controller
     public function destroy(Dish $dish)
     {
         // dd('hai eliminato il piatto: ' . $dish->name);
+        // eliminazione immagine da local storage
+        if ($dish->image) {
+            Storage::disk('public')->delete($dish->image);
+        }
 
         $dish->delete();
 
         return redirect()->route('dishes.index');
+    }
+
+    public function destroyImage(Dish $dish)
+    {
+
+        if ($dish->image) {
+            // dd('destroy image for ' . $dish->name);
+            Storage::disk('public')->delete($dish->image);
+            $dish->image = null;
+            $dish->save();
+        }
+
+        return redirect()->route('dishes.show', $dish);
     }
 }

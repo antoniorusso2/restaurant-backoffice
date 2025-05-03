@@ -39,5 +39,7 @@ Route::resource('categories', CategoryController::class);
 
 Route::resource('ingredients', IngredientController::class);
 
+Route::delete('/dishes/{dish}/image', [DishController::class, 'destroyImage'])->name('dishes.destroy_image');
+
 
 require __DIR__ . '/auth.php';
