@@ -46,7 +46,7 @@ class DishController extends Controller
 
         // validation
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:5'],
+            'name' => ['required', 'string', 'max:100'],
             'description' => ['nullable', 'string'],
             'category_id' => ['required', 'exists:categories,id'],
             'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
@@ -54,21 +54,22 @@ class DishController extends Controller
         ]);
 
 
-        dd($validated);
+        // dd($validated);
 
-        // $newDish = new Dish();
+        $newDish = new Dish();
 
-        // $newDish->name = $validated['name'];
-        // $newDish->description = $data['description'];
-        // $newDish->price = $data['price'];
+        $newDish->name = $validated['name'];
+        $newDish->description = $validated['description'];
+        $newDish->price = $validated['price'];
+        $newDish->category_id = $validated['category_id'];
 
-        // if (isset($data['image'])) {
-        //     $newDish->image = Storage::disk('public')->putFile('uploads/dishes', $data['image']);
-        // }
+        if (isset($validated['image'])) {
+            $newDish->image = Storage::disk('public')->putFile('uploads/dishes', $validated['image']);
+        }
 
 
-        // // dd($newDish);
-        // $newDish->save();
+        // dd($newDish);
+        $newDish->save();
 
         return redirect('/dishes');
     }

@@ -31,10 +31,10 @@ class DishController extends Controller
             // where name like %$request->name%
             $name = trim($request->name);
 
-            $query->where('name', 'like', '%' . $request->name . '%');
+            $query->where('name', 'like', '%' . $name . '%');
         }
 
-        if ($request->filled('category') && $request->category != '') {
+        if ($request->filled('category')) {
 
             // dati parametro query separati da virgola
             $formattedCategories = str_replace('-', ' ', $request->category);
