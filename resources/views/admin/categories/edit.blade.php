@@ -39,28 +39,7 @@
         </div>
     </section>
 
-    <x-modal name="confirm-category-deletion" focusable>
-        <form method="post" action="{{ route('categories.destroy', $category) }}" class="p-6">
-            @csrf
-            @method('delete')
+    {{-- modal --}}
+    <x-delete-modal :type="'category'" :item="$category" action="{{ route('categories.destroy', $category) }}" />
 
-            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                Sei sicuro di voler erliminare questa categoria?
-            </h2>
-
-            <p class="mt-1 text-sm font-semibold text-rose-600 uppercase">
-                Una volta eliminata non sarà più disponibile!
-            </p>
-
-            <div class="mt-6 flex justify-end gap-x-2" x-on:click="$dispatch('close')">
-                <button type="button" class="btn special">
-                    Annulla
-                </button>
-
-                <button class="btn special delete">
-                    Elimina
-                </button>
-            </div>
-        </form>
-    </x-modal>
 </x-app-layout>

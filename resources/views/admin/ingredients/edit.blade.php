@@ -36,28 +36,5 @@
     </section>
 
     {{-- modal --}}
-    <x-modal name="confirm-ingredient-deletion" focusable>
-        <form method="post" action="{{ route('ingredients.destroy', $ingredient) }}" class="p-6">
-            @csrf
-            @method('delete')
-
-            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                Sei sicuro di voler erliminare questo ingrediente?
-            </h2>
-
-            <p class="mt-1 text-sm font-semibold text-rose-600 uppercase">
-                Una volta eliminato non sarà più disponibile!
-            </p>
-
-            <div class="mt-6 flex justify-end gap-x-2" x-on:click="$dispatch('close')">
-                <button type="button" class="btn special">
-                    Annulla
-                </button>
-
-                <button class="btn special delete">
-                    Elimina
-                </button>
-            </div>
-        </form>
-    </x-modal>
+    <x-delete-modal :type="'ingredient'" :item="$ingredient" action="{{ route('ingredients.destroy', $ingredient) }}" />
 </x-app-layout>
