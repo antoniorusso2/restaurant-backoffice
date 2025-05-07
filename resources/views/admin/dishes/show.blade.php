@@ -6,7 +6,7 @@
             <a class="btn special" href="{{ route('dishes.edit', $dish) }}">Modifica</a>
 
             {{-- delete --}}
-            <button class="btn special delete md:ms-auto" id="modal-trigger" x-data="" x-on:click.prevent="$dispatch('open-modal', 'confirm-dish-deletion')">Elimina</button>
+            <button class="btn special delete md:ms-auto" id="modal-trigger" x-data="" x-on:click.prevent="$dispatch('open-modal', 'confirm-{{ $dish->name }}-deletion')">Elimina</button>
         </div>
     </div>
 
@@ -45,29 +45,5 @@
         </div>
     @endif
 
-    {{-- modal --}}
-    <x-modal name="confirm-dish-deletion" focusable>
-        <form method="post" action="{{ route('dishes.destroy', $dish) }}" class="p-6">
-            @csrf
-            @method('delete')
-
-            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                Sei sicuro di voler erliminare questo piatto?
-            </h2>
-
-            <p class="mt-1 text-sm font-semibold text-rose-600 uppercase">
-                Una volta eliminata non sarà più disponibile!
-            </p>
-
-            <div class="mt-6 flex justify-end gap-x-2" x-on:click="$dispatch('close')">
-                <button type="button" class="btn special">
-                    Annulla
-                </button>
-
-                <button class="btn special delete">
-                    Elimina
-                </button>
-            </div>
-        </form>
-    </x-modal>
+    <x-delete-modal :item="$dish" action="{{ route('dishes.destroy', $dish) }}" />
 </x-app-layout>
