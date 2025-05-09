@@ -1,7 +1,7 @@
 <x-app-layout>
 
     <div class="container">
-        <div class="flex gap-4 w-full justify-start flex-wrap">
+        <div class="flex w-full flex-wrap justify-start gap-4">
             <a class="btn special" href="{{ route('dishes.index') }}">Indietro</a>
             <a class="btn special" href="{{ route('dishes.edit', $dish) }}">Modifica</a>
 
@@ -18,12 +18,12 @@
     @endif
 
     <div class="container">
-        <div class="title_price flex justify-between items-center">
+        <div class="title_price flex items-center justify-between">
             <div class="name">
-                <h1 class="text-4xl">{{ $dish->name }}</h1>
+                <h1 class="text-4xl mb-2">{{ $dish->name }}</h1>
                 <span class="badge rounded-sm px-3 py-1" style="background-color: {{ $dish->category->color }}">{{ $dish->category->name }}</span>
             </div>
-            <span class="text-3xl bg-emerald-500 p-2 rounded-md">€ {{ $dish->price }}</span>
+            <span class="rounded-md bg-emerald-500 p-2 text-3xl">€ {{ $dish->price }}</span>
         </div>
 
         <hr class="mt-4">
@@ -34,8 +34,8 @@
     {{-- dishes ingredients --}}
     @if ($dish->ingredients->count() > 0)
         <div class="container">
-            <h2 class="text-3xl mb-4">Ingredienti:</h2>
-            <ul class="flex flex-col flex-wrap gap-4 ">
+            <h2 class="mb-4 text-3xl">Ingredienti:</h2>
+            <ul class="flex flex-col flex-wrap gap-4">
                 @foreach ($dish->ingredients as $ingredient)
                     <li class="badge my-2">
                         - {{ $ingredient->name }}
