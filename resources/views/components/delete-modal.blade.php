@@ -17,9 +17,7 @@
 
 @endphp
 
-{{-- @dd($item); --}}
-
-<x-modal name="confirm-{{ $item->name }}-deletion" focusable>
+<x-modal name="confirm-{{ $type }}-deletion" focusable>
     <form method="post" action="{{ $action }}" class="p-6">
         @csrf
         @method('delete')

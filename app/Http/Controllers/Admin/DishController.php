@@ -128,8 +128,8 @@ class DishController extends Controller
 
         $dish->save();
 
-        if (isset($validated['ingredients'])) {
-            $dish->ingredients()->sync($validated['ingredients']);
+        if (isset($request->ingredients)) {
+            $dish->ingredients()->sync($request['ingredients']);
         } else {
             $dish->ingredients()->detach();
         }

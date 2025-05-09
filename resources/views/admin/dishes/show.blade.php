@@ -37,7 +37,7 @@
             <h2 class="text-3xl mb-4">Ingredienti:</h2>
             <ul class="flex flex-col flex-wrap gap-4 ">
                 @foreach ($dish->ingredients as $ingredient)
-                    <li class="badge">
+                    <li class="badge my-2">
                         - {{ $ingredient->name }}
                     </li>
                 @endforeach
@@ -45,5 +45,5 @@
         </div>
     @endif
 
-    <x-delete-modal :item="$dish" action="{{ route('dishes.destroy', $dish) }}" />
+    <x-delete-modal :item="$dish" :type="'dish'" action="{{ route('dishes.destroy', $dish) }}" />
 </x-app-layout>

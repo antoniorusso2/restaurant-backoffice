@@ -1,7 +1,7 @@
 <x-app-layout>
 
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
             {{ __('Modifica piatto') }}
         </h2>
     </x-slot>
@@ -18,31 +18,31 @@
 
     <section class="modify_form">
         <div class="container">
-            <form class="flex flex-col my-4 w-full mx-auto justify-center items-start" action="{{ route('dishes.update', $dish) }}" method="POST" enctype="multipart/form-data">
+            <form class="mx-auto my-4 flex w-full flex-col items-start justify-center" action="{{ route('dishes.update', $dish) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
                 {{-- name --}}
                 <div class="form_section">
                     <label class="my_label" for="name">Nome</label>
-                    <input class="mb-4 text-ellipsis w-full rounded-md {{ $errors->has('name') ? 'border-red-500' : 'border-gray-300 dark:border-gray-600' }}" type="text" id="name" name="name" placeholder="Inserisci il nome del piatto" value="{{ old('name', $dish->name) }}">
+                    <input class="{{ $errors->has('name') ? 'border-red-500' : 'border-gray-300 dark:border-gray-600' }} mb-4 w-full text-ellipsis rounded-md" type="text" id="name" name="name" placeholder="Inserisci il nome del piatto" value="{{ old('name', $dish->name) }}">
                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                 </div>
 
                 {{-- description --}}
                 <div class="form_section">
                     <label class="my_label" for="description">Descrizione</label>
-                    <textarea class="mb-4 w-full {{ $errors->has('description') ? 'border-red-500' : 'border-gray-300 dark:border-gray-600' }}" name="description" id="description" cols="40" rows="3">{{ old('description', $dish->description) }}</textarea>
+                    <textarea class="{{ $errors->has('description') ? 'border-red-500' : 'border-gray-300 dark:border-gray-600' }} mb-4 w-full" name="description" id="description" cols="40" rows="3">{{ old('description', $dish->description) }}</textarea>
                     <x-input-error :messages="$errors->get('description')" class="mt-2" />
                 </div>
 
                 {{-- category --}}
                 <div class="form_section">
-                    <label for="categories" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    <label for="categories" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
                         Seleziona una categoria
                     </label>
 
-                    <select id="categories" name="category_id" class="{{ $errors->has('category_id') ? 'border-red-500' : 'border-gray-300 dark:border-gray-600' }} bg-gray-50 border  text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-slate-700  dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <select id="categories" name="category_id" class="{{ $errors->has('category_id') ? 'border-red-500' : 'border-gray-300 dark:border-gray-600' }} block w-full rounded-lg border bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
                         <option>Scegli una categoria</option>
                         @foreach ($categories as $category)
                             <option value={{ $category->id }} {{ $dish->category_id == $category->id ? 'selected' : '' }}>{{ __($category->name) }}</option>
@@ -55,20 +55,36 @@
                 <div class="form_section">
                     <label class="my_label" for="image">Immagine</label>
 
-                    <input class="mb-4" type="file" id="image" name="image">
-                    @if ($dish->image)
-                        <div class="img-wrap relative max-w-[200px] rounded-sm overflow-hidden py-4">
-                            <img src="{{ asset('storage/' . $dish->image) }}" alt=" {{ $dish->name }} anteprima immagine" class="">
+                    <div x-data="{ fileName: '', imagePreview: null }" class="flex flex-col items-center gap-4">
 
-                            {{-- delete icon --}}
-                            <button type="button" id="modal-trigger" x-data="" x-on:click.prevent="$dispatch('open-modal', 'confirm-image-deletion')"class="absolute top-[20px] right-[5px] bg-red-400 rounded-sm p-2 cursor-pointer">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                                </svg>
-                            </button>
+                        <!-- Area caricamento immagine -->
+                        <label class="relative flex h-48 w-48 cursor-pointer flex-col items-center justify-center overflow-hidden rounded-lg border-2 border-dashed border-gray-300 text-gray-500 transition hover:bg-gray-100">
+                            <!-- Mostra immagine se presente -->
+                            <template x-if="imagePreview">
+                                <img :src="imagePreview" class="absolute inset-0 h-full w-full rounded-lg object-cover" />
+                            </template>
 
-                        </div>
-                    @endif
+                            <!-- Stato iniziale -->
+                            <div x-show="!imagePreview" class="pointer-events-none flex flex-col items-center">
+                                <span class="text-5xl font-bold">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                                    </svg>
+
+                                </span>
+                                <span class="text-sm">Scegli immagine</span>
+                            </div>
+
+                            <input type="file" name="image" class="hidden" @change="
+                                                                                    const file = $event.target.files[0];
+                                                                                    fileName = file?.name || '';
+                                                                                    imagePreview = file ? URL.createObjectURL(file) : null;
+                                                                                " />
+                        </label>
+
+                        <!-- Nome del file -->
+                        <span x-text="fileName" class="max-w-xs truncate text-center text-sm text-gray-600"></span>
+                    </div>
                     <x-input-error :messages="$errors->get('image')" class="mt-2" />
                 </div>
 
@@ -77,9 +93,9 @@
                     <label class="my_label" for="ingredients">Ingredienti</label>
                     <div class="flex flex-wrap gap-4">
                         @foreach ($ingredients as $ingredient)
-                            <div class="flex items-center ">
+                            <div class="flex items-center">
                                 <input type="checkbox" name="ingredients[]" id="{{ $ingredient->id }}" value="{{ $ingredient->id }}" {{ $dish->ingredients->contains($ingredient->id) ? 'checked' : '' }}>
-                                <label class=" ms-2" for="{{ $ingredient->id }}">{{ $ingredient->name }}</label>
+                                <label class="ms-2" for="{{ $ingredient->id }}">{{ $ingredient->name }}</label>
                             </div>
                         @endforeach
                     </div>
