@@ -51,40 +51,49 @@
                     <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
                 </div>
 
-                {{-- img --}}
                 <div class="form_section">
                     <label class="my_label" for="image">Immagine</label>
+                    @if ($dish->image)
+                        {{-- mostra l'immagine del piatto se già presente --}}
+                        <div class="img-wrap relative max-w-[300px] rounded-sm overflow-hidden py-4">
+                            <img src="{{ asset('storage/' . $dish->image) }}" alt=" {{ $dish->name }} anteprima immagine" class="">
 
-                    <div x-data="{ fileName: '', imagePreview: null }" class="flex flex-col items-center gap-4">
+                            {{-- delete icon --}}
+                            <x-ui.trash-button :classes="'absolute top-[20px] right-[5px] '" />
+                        </div>
+                    @else
+                        {{-- img --}}
 
-                        <!-- Area caricamento immagine -->
-                        <label class="relative flex h-48 w-48 cursor-pointer flex-col items-center justify-center overflow-hidden rounded-lg border-2 border-dashed border-gray-300 text-gray-500 transition hover:bg-gray-100">
-                            <!-- Mostra immagine se presente -->
-                            <template x-if="imagePreview">
-                                <img :src="imagePreview" class="absolute inset-0 h-full w-full rounded-lg object-cover" />
-                            </template>
+                        <div x-data="{ fileName: '', imagePreview: null }" class="flex flex-col items-center gap-4">
 
-                            <!-- Stato iniziale -->
-                            <div x-show="!imagePreview" class="pointer-events-none flex flex-col items-center">
-                                <span class="text-5xl font-bold">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
-                                    </svg>
+                            {{-- caricamento immagine --}}
+                            <label class="relative flex h-48 w-48 cursor-pointer flex-col items-center justify-center overflow-hidden rounded-lg border-2 border-dashed border-gray-300 text-gray-500 transition hover:bg-gray-100">
+                                {{-- Se l'immagine è stata caricata --}}
+                                <template x-if="imagePreview">
+                                    <img :src="imagePreview" class="absolute inset-0 h-full w-full rounded-lg object-cover" />
+                                </template>
 
-                                </span>
-                                <span class="text-sm">Scegli immagine</span>
-                            </div>
+                                {{-- Se l'immagine non è stata caricata --}}
+                                <div x-show="!imagePreview" class="pointer-events-none flex flex-col items-center">
+                                    <span class="text-5xl font-bold">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                                        </svg>
+                                    </span>
+                                    <span class="text-sm">Scegli immagine</span>
+                                </div>
 
-                            <input type="file" name="image" class="hidden" @change="
+                                <input type="file" name="image" class="hidden" @change="
                                                                                     const file = $event.target.files[0];
                                                                                     fileName = file?.name || '';
                                                                                     imagePreview = file ? URL.createObjectURL(file) : null;
                                                                                 " />
-                        </label>
+                            </label>
 
-                        <!-- Nome del file -->
-                        <span x-text="fileName" class="max-w-xs truncate text-center text-sm text-gray-600"></span>
-                    </div>
+                            <!-- Nome del file -->
+                            <span x-text="fileName" class="max-w-xs truncate text-center text-sm text-gray-600"></span>
+                        </div>
+                    @endif
                     <x-input-error :messages="$errors->get('image')" class="mt-2" />
                 </div>
 
