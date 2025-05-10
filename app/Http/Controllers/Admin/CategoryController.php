@@ -31,12 +31,17 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
+        // $data = $request->all();
+
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:100'],
+            'color' => ['required', 'string', 'max:100'],
+        ]);
 
         $newCategory = new Category();
 
-        $newCategory->name = $data['name'];
-        $newCategory->color = $data['color'];
+        $newCategory->name = $validated['name'];
+        $newCategory->color = $validated['color'];
 
         $newCategory->save();
 
