@@ -10,9 +10,9 @@
         <h3 class="text-2xl font-semibold">{{ $item->name }}</h3>
     </div>
     <div class="card-body flex-grow flex flex-col items-start">
-        <x-ui.anchor-btn :href="$item->getShowRoute($item)" :classes="'mt-auto self-end'">
-            <x-slot name="text">Dettagli</x-slot>
-        </x-ui.anchor-btn>
+        <x-buttons.anchor :class="'mt-auto self-end'" :href="$item->getShowRoute($item)">
+            Dettagli
+        </x-buttons.anchor>
 
         {{-- {{ $item->getRoutes($item, 'show') }} </div> --}}
     </div>

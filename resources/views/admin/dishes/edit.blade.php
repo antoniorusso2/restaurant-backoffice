@@ -59,7 +59,7 @@
                             <img src="{{ asset('storage/' . $dish->image) }}" alt=" {{ $dish->name }} anteprima immagine" class="">
 
                             {{-- delete icon --}}
-                            <x-ui.trash-button :classes="'absolute top-[20px] right-[5px] '" />
+                            <x-buttons.trash :class="'absolute top-[20px] right-[5px] '" />
                         </div>
                     @else
                         {{-- img --}}
