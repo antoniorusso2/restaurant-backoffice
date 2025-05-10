@@ -15,27 +15,18 @@
 
     <section class="modify_form">
         <div class="container">
-            <form class="flex flex-col my-4 w-full mx-auto justify-center items-start"
-                action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-
-                {{-- name --}}
-                <div class="form_section">
-                    <label class="my_label" for="name">Nome</label>
-                    <input class="mb-4 text-ellipsis w-full rounded-md" type="text" id="name" name="name"
-                        placeholder="Inserisci il nome del categoria" ">
-                </div>
-
-                {{-- color --}}
-                <div class=" form_section">
-                    <label class="my_label" for="color">Colore</label>
-                    <input class="mb-4 text-ellipsis rounded-md w-44 appearance-none border-none" type="color"
-                        id="color" name="color">
-                </div>
-
-                {{-- submit --}}
-                <button class=" btn special self-end" type="submit">Invia</button>
-            </form>
+            <x-forms.form :action="route('categories.store')" :method="'POST'" :fields="[
+                [
+                    'name' => 'name',
+                    'label' => 'Nome',
+                    'type' => 'text',
+                ],
+                [
+                    'name' => 'color',
+                    'label' => 'Colore',
+                    'type' => 'color',
+                ],
+            ]" />
         </div>
     </section>
 
