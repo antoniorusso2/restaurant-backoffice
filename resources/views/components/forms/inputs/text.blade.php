@@ -10,5 +10,5 @@
 <input
     @disabled($disabled)
     class="@error($name) border-red-500 @enderror {{ $basicClasses }}"
-    {{ $attributes->merge(['name' => $name, 'id' => $name]) }}
+    {{ $attributes->merge(['name' => $name, 'id' => $name, 'type' => 'text']) }}
 >

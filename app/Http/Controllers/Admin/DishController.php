@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Dish;
 use App\Models\Ingredient;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -15,7 +16,7 @@ class DishController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
         $dishes = Dish::all();
 
@@ -28,7 +29,7 @@ class DishController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
         // categories
         $categories = Category::all();
@@ -42,6 +43,7 @@ class DishController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        // dd($request->all());
 
         // validation
         $validated = $request->validate([
@@ -80,7 +82,7 @@ class DishController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Dish $dish)
+    public function show(Dish $dish): View
     {
         return view('admin.dishes.show', compact('dish'));
     }
@@ -99,7 +101,7 @@ class DishController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Dish $dish)
+    public function update(Request $request, Dish $dish): RedirectResponse
     {
         // dd($request->all());
         $validated = $request->validate([
@@ -140,7 +142,7 @@ class DishController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Dish $dish)
+    public function destroy(Dish $dish): RedirectResponse
     {
         dd('hai eliminato il piatto: ' . $dish->name);
         // eliminazione immagine da local storage
@@ -153,7 +155,7 @@ class DishController extends Controller
         // return redirect()->route('dishes.index');
     }
 
-    public function destroyImage(Dish $dish)
+    public function destroyImage(Dish $dish): RedirectResponse
     {
 
         // dd('destroy image for ' . $dish->name);

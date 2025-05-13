@@ -15,18 +15,27 @@
 
     <section class="modify_form">
         <div class="container">
-            <x-forms.form :action="route('categories.store')" :method="'POST'" :fields="[
-                [
-                    'name' => 'name',
-                    'label' => 'Nome',
-                    'type' => 'text',
-                ],
-                [
-                    'name' => 'color',
-                    'label' => 'Colore',
-                    'type' => 'color',
-                ],
-            ]" />
+            <form
+                class="mx-auto flex w-full flex-col items-start justify-center gap-4"
+                action="{{ route('categories.store') }}"
+                method="POST"
+                enctype="multipart/form-data"
+            >
+                @csrf
+                @method('POST')
+
+                {{-- name --}}
+                <x-forms.form-field field="name" label="Categoria">
+                    <x-forms.inputs.text name="name" value="{{ old('name', '') }}" />
+                </x-forms.form-field>
+
+                {{-- color --}}
+                <x-forms.form-field field="color" label="Colore">
+                    <x-forms.inputs.color name="color" value="{{ old('color', '') }}" />
+                </x-forms.form-field>
+
+                <button class="btn special ms-auto" type="submit">Crea</button>
+            </form>
         </div>
     </section>
 
