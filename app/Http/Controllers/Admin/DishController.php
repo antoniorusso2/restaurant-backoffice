@@ -53,6 +53,7 @@ class DishController extends Controller
             'ingredients' => ['nullable', 'array'],
         ]);
 
+
         // dd($validated);
 
         $newDish = new Dish();
@@ -67,7 +68,6 @@ class DishController extends Controller
             $newDish->image = Storage::disk('public')->putFile('uploads/dishes', $validated['image']);
         }
 
-        // dd($newDish);
         //aggiungo il piatto al db
         $newDish->save();
 
@@ -110,13 +110,13 @@ class DishController extends Controller
             'price' => ['required', 'numeric'],
         ]);
 
-
         $dish->name = $validated['name'];
         $dish->description = $validated['description'];
         $dish->price = $validated['price'];
         $dish->category_id = $validated['category_id'];
 
-        if (isset($validated['image']) && $dish->image) {
+        if ($dish->image && isset($validated['image'])) {
+            dd('immagine ' . $dish->name);
             //elimina l'immagine precedente
             Storage::disk('public')->delete($dish->image);
 
@@ -156,15 +156,15 @@ class DishController extends Controller
     public function destroyImage(Dish $dish)
     {
 
-        dd('destroy image for ' . $dish->name);
+        // dd('destroy image for ' . $dish->name);
 
-        // if ($dish->image) {
-        //     // dd('destroy image for ' . $dish->name);
-        //     Storage::disk('public')->delete($dish->image);
-        //     $dish->image = null;
-        //     $dish->save();
-        // }
+        if ($dish->image) {
+            // dd('destroy image for ' . $dish->name);
+            Storage::disk('public')->delete($dish->image);
+            $dish->image = null;
+            $dish->save();
+        }
 
-        // return redirect()->route('dishes.show', $dish);
+        return redirect()->route('dishes.show', $dish);
     }
 }

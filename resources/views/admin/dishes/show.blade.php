@@ -6,13 +6,22 @@
             <a class="btn special" href="{{ route('dishes.edit', $dish) }}">Modifica</a>
 
             {{-- delete --}}
-            <button class="btn special delete md:ms-auto" id="modal-trigger" x-data="" x-on:click.prevent="$dispatch('open-modal', 'confirm-{{ $dish->name }}-deletion')">Elimina</button>
+            <button
+                class="btn special delete md:ms-auto"
+                id="modal-trigger"
+                x-data=""
+                x-on:click.prevent="$dispatch('open-modal', 'confirm-dish-deletion')"
+            >Elimina</button>
         </div>
     </div>
 
     @if ($dish->image)
         <div class="img__wrap container">
-            <img class="max-w-xs" src="{{ asset('storage/' . $dish->image) }}" alt=" {{ $dish->name }} anteprima immagine">
+            <img
+                class="max-w-xs"
+                src="{{ asset('storage/' . $dish->image) }}"
+                alt=" {{ $dish->name }} anteprima immagine"
+            >
             {{-- @dd(asset('storage/' . $dish->image)) --}}
         </div>
     @endif
@@ -45,5 +54,9 @@
         </div>
     @endif
 
-    <x-delete-modal :item="$dish" :type="'dish'" action="{{ route('dishes.destroy', $dish) }}" />
+    <x-delete-modal
+        :item="$dish"
+        :type="'dish'"
+        action="{{ route('dishes.destroy', $dish) }}"
+    />
 </x-app-layout>
