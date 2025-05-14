@@ -18,7 +18,7 @@ class DishController extends Controller
      */
     public function index(): View
     {
-        $dishes = Dish::all();
+        $dishes = Dish::paginate(4);
 
         // categories
         // $categories = Category::all();
