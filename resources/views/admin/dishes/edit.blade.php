@@ -42,7 +42,7 @@
                 </x-forms.form-field>
 
                 {{-- image --}}
-                <x-forms.form-field field="image" label="Immagine">
+                <x-forms.form-field field="img" label="Immagine">
                     @if ($dish->image)
                         <div class="img-wrap relative max-w-[300px] rounded-sm overflow-hidden py-4">
                             <img
@@ -60,7 +60,7 @@
                 </x-forms.form-field>
 
                 {{-- category --}}
-                <x-forms.form-field field="category" label="Categoria">
+                <x-forms.form-field field="category_id" label="Categoria">
                     <x-forms.inputs.select
                         name="category_id"
                         id="category_id"
@@ -71,18 +71,17 @@
                 </x-forms.form-field>
 
                 {{-- ingredients --}}
-                <x-forms.form-field field="ingredients" label="Ingredienti">
-                    @foreach ($ingredients as $ingredient)
-                        <div class="flex flex-wrap gap-4">
+                <x-forms.form-field field="ingredients[]" label="Ingredienti">
+                    <div class="flex flex-wrap gap-4">
+                        @foreach ($ingredients as $ingredient)
                             <x-forms.inputs.checkbox
                                 name="ingredients[]"
-                                value="{{ $ingredient->id }}"
-                                id="ingredient-{{ $ingredient->id }}"
+                                id="ingredients-{{ $ingredient->id }}"
                                 :item="$ingredient"
                                 :checked="$dish->ingredients->contains($ingredient->id)"
                             />
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
                 </x-forms.form-field>
 
                 {{-- price --}}

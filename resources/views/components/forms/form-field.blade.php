@@ -1,6 +1,6 @@
 @props(['field' => null, 'label' => null])
 
-<div class="form_section flex w-full flex-wrap items-center rounded-md bg-slate-800 px-4 py-2 text-lg text-gray-900 drop-shadow-xl dark:text-white">
+<div {{ $attributes->merge(['class' => 'form_section flex w-full flex-wrap items-center rounded-md bg-slate-800 px-4 py-2 text-lg text-gray-900 drop-shadow-xl dark:text-white']) }}>
     {{-- label --}}
     <x-forms.input-label class="my_label" for="{{ $field }}">
         {{ $label }}
