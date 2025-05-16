@@ -16,12 +16,28 @@ class DishController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index(Request $request): View
     {
-        $dishes = Dish::paginate(4);
 
-        // categories
-        // $categories = Category::all();
+        $validated = $request->validate([
+            'filter' => 'nullable|string|max:50',
+            'category_id' => 'nullable'
+        ]);
+        // dd($request->all());
+        // $dishes = Dish::paginate(4);
+        $query = Dish::query();
+
+        if (!empty($validated['category_id'])) {
+            $query->where('category_id', $request->category_id);
+        }
+
+        if (!empty($validated['filter'])) {
+            $query->where('name', 'like', '%' . $request->filter . '%');
+        }
+
+        // dd($dishes);
+
+        $dishes = $query->paginate(4);
 
         return view('admin.dishes.index', compact('dishes'));
     }
@@ -118,7 +134,7 @@ class DishController extends Controller
         $dish->category_id = $validated['category_id'];
 
         if ($dish->image && isset($validated['image'])) {
-            dd('immagine ' . $dish->name);
+            // dd('immagine ' . $dish->name);
             //elimina l'immagine precedente
             Storage::disk('public')->delete($dish->image);
 
@@ -144,15 +160,15 @@ class DishController extends Controller
      */
     public function destroy(Dish $dish): RedirectResponse
     {
-        dd('hai eliminato il piatto: ' . $dish->name);
+        // dd('hai eliminato il piatto: ' . $dish->name);
         // eliminazione immagine da local storage
-        // if ($dish->image) {
-        //     Storage::disk('public')->delete($dish->image);
-        // }
+        if ($dish->image) {
+            Storage::disk('public')->delete($dish->image);
+        }
 
-        // $dish->delete();
+        $dish->delete();
 
-        // return redirect()->route('dishes.index');
+        return redirect()->route('dishes.index');
     }
 
     public function destroyImage(Dish $dish): RedirectResponse

@@ -12,6 +12,11 @@
 
     <div class="container">
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 p-4 gap-4">
+            @if (count($dishes) == 0)
+                <div class="no-content">
+                    Nessun piatto trovato
+                </div>
+            @endif
             @foreach ($dishes as $dish)
                 <x-card :item="$dish" :route="route('dishes.show', $dish)" />
             @endforeach

@@ -2,11 +2,10 @@
 
 use App\Http\Controllers\Admin\DishController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\IngredientController;
 use App\Http\Controllers\ProfileController;
-use App\Models\Category;
-use App\Models\Dish;
-use App\Models\Ingredient;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -14,18 +13,7 @@ Route::get('/', function () {
 });
 
 // ! debug only no auth
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::get('/dashboard', function () {
-
-    $dishes = Dish::all();
-    $categories = Category::All();
-    $ingredients = Ingredient::all();
-
-    return view('dashboard', compact('dishes', 'categories', 'ingredients'));
-})->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
