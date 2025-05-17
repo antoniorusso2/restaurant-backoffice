@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Dishes\FilterDishRequest;
 use App\Http\Requests\Dishes\StoreDishRequest;
+use App\Http\Requests\Dishes\UpdateDishRequest;
 use App\Models\Category;
 use App\Models\Dish;
 use App\Models\Ingredient;
@@ -17,22 +19,18 @@ class DishController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): View
+    public function index(FilterDishRequest $request): View
     {
 
-        $validated = $request->validate([
-            'filter' => 'nullable|string|max:50',
-            'category_id' => 'nullable'
-        ]);
-        // dd($request->all());
-        // $dishes = Dish::paginate(4);
+        $filters = $request->all();
+
         $query = Dish::query();
 
-        if (!empty($validated['category_id'])) {
+        if (!empty($filters['category_id'])) {
             $query->where('category_id', $request->category_id);
         }
 
-        if (!empty($validated['filter'])) {
+        if (!empty($filters['filter'])) {
             $query->where('name', 'like', '%' . $request->filter . '%');
         }
 
@@ -50,6 +48,7 @@ class DishController extends Controller
     {
         // categories
         $categories = Category::all();
+        //ingredients
         $ingredients = Ingredient::all();
 
         return view('admin.dishes.create', compact('categories', 'ingredients'));
@@ -71,7 +70,6 @@ class DishController extends Controller
         $newDish->description = $validated['description'];
         $newDish->price = $validated['price'];
         $newDish->category_id = $validated['category_id'];
-
 
         if (isset($validated['image'])) {
             $newDish->image = Storage::disk('public')->putFile('uploads/dishes', $validated['image']);
@@ -108,16 +106,10 @@ class DishController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Dish $dish): RedirectResponse
+    public function update(UpdateDishRequest $request, Dish $dish): RedirectResponse
     {
         // dd($request->all());
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:100'],
-            'description' => ['nullable', 'string'],
-            'category_id' => ['required', 'exists:categories,id'],
-            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
-            'price' => ['required', 'numeric'],
-        ]);
+        $validated = $request->all();
 
         $dish->name = $validated['name'];
         $dish->description = $validated['description'];

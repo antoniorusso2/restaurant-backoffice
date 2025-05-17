@@ -2,7 +2,8 @@
 
     <div class="container">
         <div class="flex w-full flex-wrap justify-start gap-4">
-            <a class="btn special" href="{{ route('dishes.index') }}">Indietro</a>
+            {{-- <a class="btn special" href="{{ route('dishes.index') }}">Indietro</a> --}}
+            <x-buttons.go-back-btn />
             <a class="btn special" href="{{ route('dishes.edit', $dish) }}">Modifica</a>
 
             {{-- delete --}}

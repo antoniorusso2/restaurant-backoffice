@@ -22,6 +22,6 @@
             @endforeach
         </div>
 
-        {{ $dishes->onEachSide(1)->links() }}
+        {{ $dishes->links() }}
     </div>
 </x-app-layout>
