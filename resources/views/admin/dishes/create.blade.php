@@ -55,18 +55,19 @@
                 </x-forms.form-field>
 
                 {{-- ingredients --}}
-                <x-forms.form-field field="ingredients" label="Ingredienti">
-                    @foreach ($ingredients as $ingredient)
-                        <div class="flex flex-wrap gap-4">
+                <x-forms.form-field field="ingredients[]" label="Ingredienti">
+                    <div class="flex flex-wrap gap-4">
+                        @foreach ($ingredients as $ingredient)
                             <x-forms.inputs.checkbox
                                 name="ingredients[]"
                                 value="{{ $ingredient->id }}"
                                 id="ingredient-{{ $ingredient->id }}"
+                                labelFor="ingredient-{{ $ingredient->id }}"
                                 :item="$ingredient"
                                 :checked="old('ingredients') && in_array($ingredient->id, old('ingredients'))"
                             />
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
                 </x-forms.form-field>
 
                 {{-- price --}}

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Dishes\StoreDishRequest;
 use App\Models\Category;
 use App\Models\Dish;
 use App\Models\Ingredient;
@@ -57,22 +58,12 @@ class DishController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(StoreDishRequest $request): RedirectResponse
     {
+
         // dd($request->all());
 
-        // validation
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:100'],
-            'description' => ['nullable', 'string'],
-            'category_id' => ['required', 'exists:categories,id'],
-            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
-            'price' => ['required', 'numeric'],
-            'ingredients' => ['nullable', 'array'],
-        ]);
-
-
-        // dd($validated);
+        $validated = $request->all();
 
         $newDish = new Dish();
 

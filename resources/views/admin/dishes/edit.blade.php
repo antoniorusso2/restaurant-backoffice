@@ -77,6 +77,7 @@
                             <x-forms.inputs.checkbox
                                 name="ingredients[]"
                                 id="ingredients-{{ $ingredient->id }}"
+                                label-for="ingredients-{{ $ingredient->id }}"
                                 :item="$ingredient"
                                 :checked="$dish->ingredients->contains($ingredient->id)"
                             />
