@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dishes\FilterDishRequest;
 use App\Http\Requests\Dishes\StoreDishRequest;
-use App\Http\Requests\Dishes\UpdateDishRequest;
 use App\Models\Category;
 use App\Models\Dish;
 use App\Models\Ingredient;
@@ -22,8 +21,14 @@ class DishController extends Controller
     public function index(FilterDishRequest $request): View
     {
 
-        $filters = $request->all();
+        $limit = $request->limit ?? 4;
 
+        $validated = $request->validate([
+            'filter' => 'nullable|string|max:50',
+            'category_id' => 'nullable'
+        ]);
+        // dd($request->all());
+        // $dishes = Dish::paginate(4);
         $query = Dish::query();
 
         if (!empty($filters['category_id'])) {
@@ -36,7 +41,7 @@ class DishController extends Controller
 
         // dd($dishes);
 
-        $dishes = $query->paginate(4);
+        $dishes = $query->orderby('name', 'asc')->paginate($limit);
 
         return view('admin.dishes.index', compact('dishes'));
     }
@@ -106,9 +111,17 @@ class DishController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateDishRequest $request, Dish $dish): RedirectResponse
+    public function update(StoreDishRequest $request, Dish $dish): RedirectResponse
     {
         // dd($request->all());
+        // $validated = $request->validate([
+        //     'name' => ['required', 'string', 'max:100'],
+        //     'description' => ['nullable', 'string'],
+        //     'category_id' => ['required', 'exists:categories,id'],
+        //     'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+        //     'price' => ['required', 'numeric'],
+        // ]);
+
         $validated = $request->all();
 
         $dish->name = $validated['name'];
@@ -166,6 +179,6 @@ class DishController extends Controller
             $dish->save();
         }
 
-        return redirect()->route('dishes.show', $dish);
+        return redirect()->route('dishes.edit', $dish);
     }
 }

@@ -7,31 +7,12 @@
 
 
     <div class="container">
-        <!--
-        <div class="w-full p-4">
-
-            <div class="search w-full md:flex-1">
-                <form action="" class="w-full">
-                   
-
-                    
-
-                    {{-- prezzo --}}
-                    <x-forms.form-field field="name" label="Nome del piatto">
-                        <x-forms.inputs.text />
-                    </x-forms.form-field>
-
-                </form>
-            </div>
-
-        </div>
-    -->
 
         {{-- filter --}}
         <div class="w-full ">
             <form method="GET" action="{{ route('dishes.index') }}">
                 @csrf
-                <div class="filter flex flex-col md:flex-row md:items-end space-x-2">
+                <div class="filter flex flex-col  md:flex-row md:items-end space-x-2">
                     {{-- categoria --}}
                     <div class="filter-field">
                         <label for="category_id">
@@ -45,7 +26,7 @@
                     </div>
 
                     {{-- ricerca per nome --}}
-                    <div class="filter-field w-full">
+                    <div class="filter-field ">
                         <label for="filter">
                             Nome
                         </label>
@@ -55,7 +36,7 @@
 
 
                     {{-- Pulsante invio --}}
-                    <div class="w-full md:w-auto">
+                    <div class=" md:w-auto">
                         <button type="submit" class="w-full md:w-auto inline-flex items-center justify-center px-4 py-2 mt-1 md:mt-0 bg-indigo-600 text-white font-medium text-sm rounded-md shadow hover:bg-indigo-700 transition">
                             Filtra
                         </button>

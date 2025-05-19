@@ -85,11 +85,11 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        dd('sei nella destroy per la categoria ' . $category->name);
+        // dd('sei nella destroy per la categoria ' . $category->name);
 
 
-        // $category->delete();
+        $category->delete();
 
-        // return redirect()->route('categories.index');
+        return redirect()->route('categories.index');
     }
 }
