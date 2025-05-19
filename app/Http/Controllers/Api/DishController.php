@@ -13,7 +13,7 @@ class DishController extends Controller
     public function index(Request $request): JsonResponse
     {
 
-        $validated = $request->validate([
+        $request->validate([
             'limit' => ['nullable', 'integer', 'min:1', 'max:20'],
             'name' => ['nullable', 'string', 'max:150'],
             'category' => ['nullable', 'string', 'max:50'],

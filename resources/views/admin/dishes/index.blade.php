@@ -7,7 +7,13 @@
     <div class="container">
         <div class="flex flex-col sm:flex-row justify-between items-start">
             <a class="btn special" href="{{ route('dishes.create') }}">Crea nuovo Piatto</a>
-            <x-select-items-per-page
+            {{-- <x-select-items-per-page
+                action="{{ route('dishes.index') }}"
+                :limits="[4, 8, 12]"
+                :selected="$dishes->perPage()"
+            /> --}}
+
+            <x-items-per-page
                 action="{{ route('dishes.index') }}"
                 :limits="[4, 8, 12]"
                 :selected="$dishes->perPage()"

@@ -5,14 +5,12 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\IngredientController;
 use App\Http\Controllers\ProfileController;
-
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-// ! debug only no auth
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -21,13 +19,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware('web')->resource('dishes', DishController::class);
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::resource('dishes', DishController::class);
+    Route::resource('categories', CategoryController::class);
+    Route::resource('ingredients', IngredientController::class);
 
-Route::resource('categories', CategoryController::class);
-
-Route::resource('ingredients', IngredientController::class);
-
-Route::delete('/dishes/{dish}/image', [DishController::class, 'destroyImage'])->name('dishes.destroy_image');
-
+    //image destroy
+    Route::delete('/dishes/{dish}/image', [DishController::class, 'destroyImage'])->name('dishes.destroy_image');
+});
 
 require __DIR__ . '/auth.php';

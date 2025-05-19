@@ -16,9 +16,18 @@ Route::get('/', function () {
 });
 
 // dish routes
-Route::middleware([JsonResponse::class])->apiResource('dishes', DishController::class)->only('index', 'show')->missing(function () {
+Route::prefix('api.')->name('api')->middleware([JsonResponse::class])->apiResource('dishes', DishController::class)->only('index', 'show')->missing(function () {
     return response()->json([
         'success' => false,
-        'message' => 'Not found'
+        'message' => 'Dish not found'
     ], 404);
 });
+
+Route::fallback(
+    function () {
+        return response()->json([
+            'success' => false,
+            'message' => 'URL not found'
+        ], 404);
+    }
+);
