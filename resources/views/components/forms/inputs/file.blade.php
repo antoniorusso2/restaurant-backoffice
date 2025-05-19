@@ -1,8 +1,8 @@
-@props(['item' => null, 'type' => null])
+@props(['item' => null, 'type' => null, 'class' => ''])
 
 <div x-data="{ fileName: '', imagePreview: null }" class="flex flex-col items-center gap-4">
     {{-- caricamento immagine --}}
-    <label class="relative flex h-48 w-48 cursor-pointer flex-col items-center justify-center overflow-hidden rounded-lg border-2 border-dashed border-gray-300 text-gray-500 transition hover:bg-gray-100">
+    <label class="@error('image') border-red-500 @enderror relative flex h-48 w-48 cursor-pointer flex-col items-center justify-center overflow-hidden rounded-lg border-2 border-dashed border-gray-300 text-gray-500 transition hover:bg-gray-100">
 
         {{-- Se l'immagine è stata caricata --}}
         <template x-if="imagePreview">

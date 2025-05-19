@@ -26,7 +26,7 @@ class StoreDishRequest extends FormRequest
             'name' => ['required', 'string', 'max:100'],
             'description' => ['nullable', 'string', 'max:500'],
             'category_id' => ['required', 'exists:categories,id'],
-            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:5120'],
             'price' => ['required', 'numeric', 'min:0.01', 'max:1000.00'],
             'ingredients' => ['nullable', 'array'],
         ];

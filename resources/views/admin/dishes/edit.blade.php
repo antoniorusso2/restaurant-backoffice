@@ -57,6 +57,8 @@
                     @else
                         <x-forms.inputs.file />
                     @endif
+
+                    <x-forms.input-error class="mt-2 w-full" :messages="$errors->get('image')" />
                 </x-forms.form-field>
 
                 {{-- category --}}

@@ -108,16 +108,18 @@ class DishController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Dish $dish): RedirectResponse
+    public function update(StoreDishRequest $request, Dish $dish): RedirectResponse
     {
         // dd($request->all());
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:100'],
-            'description' => ['nullable', 'string'],
-            'category_id' => ['required', 'exists:categories,id'],
-            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
-            'price' => ['required', 'numeric'],
-        ]);
+        // $validated = $request->validate([
+        //     'name' => ['required', 'string', 'max:100'],
+        //     'description' => ['nullable', 'string'],
+        //     'category_id' => ['required', 'exists:categories,id'],
+        //     'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+        //     'price' => ['required', 'numeric'],
+        // ]);
+
+        $validated = $request->all();
 
         $dish->name = $validated['name'];
         $dish->description = $validated['description'];
@@ -174,6 +176,6 @@ class DishController extends Controller
             $dish->save();
         }
 
-        return redirect()->route('dishes.show', $dish);
+        return redirect()->route('dishes.edit', $dish);
     }
 }
