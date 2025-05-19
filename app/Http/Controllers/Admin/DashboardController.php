@@ -13,10 +13,15 @@ class DashboardController extends Controller
 {
     public function index(Request $request): View
     {
+        // ordine alfabetico
+        $dish_query = Dish::query();
+        $dishes = $dish_query->orderby('name', 'asc')->get();
 
-        $dishes = Dish::all();
         $categories = Category::all();
-        $ingredients = Ingredient::all();
+
+        // ordine alfabetico
+        $ingredients_query = Ingredient::query();
+        $ingredients = $ingredients_query->orderby('name', 'asc')->get();
 
         return view('dashboard', compact('dishes', 'categories', 'ingredients'));
     }

@@ -38,7 +38,7 @@ class DishController extends Controller
 
         // dd($dishes);
 
-        $dishes = $query->paginate(4);
+        $dishes = $query->orderby('name', 'asc')->paginate(4);
 
         return view('admin.dishes.index', compact('dishes'));
     }
