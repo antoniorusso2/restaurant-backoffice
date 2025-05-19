@@ -30,7 +30,11 @@
         <div class="title_price flex flex-wrap flex-row items-center justify-between gap-4">
             <div class="name">
                 <h1 class="text-4xl mb-2">{{ $dish->name }}</h1>
-                <span class="badge rounded-sm px-3 py-1" style="background-color: {{ $dish->category->color }}">{{ $dish->category->name }}</span>
+                @if ($dish->category)
+                    <span class="badge rounded-sm px-3 py-1" style="background-color: {{ $dish->category->color }}">{{ $dish->category->name }}</span>
+                @else
+                    <span class="badge rounded-sm py-1 text-gray-500 italic">Nessuna categoria selezionata</span>
+                @endif
             </div>
             <span class="rounded-md bg-emerald-500 p-2 text-3xl ">€ {{ $dish->price }}</span>
         </div>

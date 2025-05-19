@@ -20,6 +20,8 @@ class DishController extends Controller
     public function index(Request $request): View
     {
 
+        $limit = $request->limit ?? 4;
+
         $validated = $request->validate([
             'filter' => 'nullable|string|max:50',
             'category_id' => 'nullable'
@@ -38,7 +40,7 @@ class DishController extends Controller
 
         // dd($dishes);
 
-        $dishes = $query->orderby('name', 'asc')->paginate(4);
+        $dishes = $query->orderby('name', 'asc')->paginate($limit);
 
         return view('admin.dishes.index', compact('dishes'));
     }
