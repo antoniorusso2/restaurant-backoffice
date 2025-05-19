@@ -23,12 +23,11 @@ class DishController extends Controller
 
         $limit = $request->limit ?? 4;
 
-        $validated = $request->validate([
+        $filters = $request->validate([
             'filter' => 'nullable|string|max:50',
             'category_id' => 'nullable'
         ]);
-        // dd($request->all());
-        // $dishes = Dish::paginate(4);
+
         $query = Dish::query();
 
         if (!empty($filters['category_id'])) {
@@ -38,8 +37,6 @@ class DishController extends Controller
         if (!empty($filters['filter'])) {
             $query->where('name', 'like', '%' . $request->filter . '%');
         }
-
-        // dd($dishes);
 
         $dishes = $query->orderby('name', 'asc')->paginate($limit);
 

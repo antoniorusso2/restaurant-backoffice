@@ -11,7 +11,7 @@
         {{-- filter --}}
         <div class="w-full ">
             <form method="GET" action="{{ route('dishes.index') }}">
-                @csrf
+
                 <div class="filter flex flex-col  md:flex-row md:items-end space-x-2">
                     {{-- categoria --}}
                     <div class="filter-field">
