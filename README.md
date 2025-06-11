@@ -95,17 +95,4 @@ Questo avvierà:
 
 ## 📚 Note aggiuntive
 
--   Per il frontend, sono usati Alpine.js e Tailwind CSS con plugin `@tailwindcss/forms`.
--   Axios è utilizzato per le chiamate HTTP verso le API Laravel.
--   Il sistema di code Laravel permette di gestire operazioni asincrone come notifiche o elaborazioni background.
--   La configurazione Vite è personalizzata nel file `vite.config.js`.
-
----
-
-Se vuoi, posso aiutarti a creare anche una sezione specifica per:
-
--   Descrivere le API disponibili
--   Inserire esempi di utilizzo o chiamate
--   Documentare flussi di autenticazione
-
-Fammi sapere!
+-   Per il frontend, sono usati Alpine.js e Tailwind CSS.
