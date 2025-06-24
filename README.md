@@ -1,6 +1,6 @@
 # Restaurant Backoffice
 
-Backend e frontend per la gestione del backoffice di un ristorante, sviluppato con Laravel 12 e Vite. Il progetto integra un'API Laravel sicura e un frontend moderno basato su Alpine.js, Tailwind CSS e Axios.
+Backend e frontend per la gestione del backoffice di un ristorante, sviluppato con Laravel 12 e Vite. Il progetto integra un'API Laravel ed un frontend moderno basato su Alpine.js, Tailwind CSS e Blade.
 
 ---
 
@@ -8,8 +8,7 @@ Backend e frontend per la gestione del backoffice di un ristorante, sviluppato c
 
 -   **Backend:** Laravel Framework 12, PHP 8.2
 -   **Frontend:** Vite, Tailwind CSS, Alpine.js
--   **Comunicazione:** Axios per chiamate API
--   **Altro:** Laravel Sanctum per autenticazione, Laravel Breeze per scaffolding autenticazione, Laravel Queue per gestione code
+-   **Altro:** Laravel Breeze per scaffolding autenticazione
 
 ---
 
@@ -77,22 +76,17 @@ composer dev
 Questo avvierà:
 
 -   Server Laravel (php artisan serve)
--   Listener per code Laravel (php artisan queue:listen)
+
 -   Server Vite per frontend
 
 ---
 
 ## 🧪 Script utili
 
-| Comando                    | Descrizione                                 |
-| -------------------------- | ------------------------------------------- |
-| `composer dev`             | Avvia backend, queue e frontend in dev mode |
-| `npm run dev`              | Avvia Vite per frontend                     |
-| `php artisan migrate`      | Esegue migrazioni del database              |
-| `php artisan queue:listen` | Ascolta la coda Laravel per job             |
+| Comando               | Descrizione                                 |
+| --------------------- | ------------------------------------------- |
+| `composer dev`        | Avvia backend, queue e frontend in dev mode |
+| `npm run dev`         | Avvia Vite per frontend                     |
+| `php artisan migrate` | Esegue migrazioni del database              |
 
 ---
-
-## 📚 Note aggiuntive
-
--   Per il frontend, sono usati Alpine.js e Tailwind CSS.
