@@ -21,7 +21,6 @@ app/             # Logica applicativa backend (Controller, Models, Middleware)
 database/        # Migrazioni, seeders e factory per test dati
 resources/       # Asset frontend (JS, CSS, Blade templates)
 routes/          # Definizione rotte web e API
-tests/           # Test automatici con PHPUnit e Pest
 vite.config.js   # Configurazione Vite per frontend
 ```
 
