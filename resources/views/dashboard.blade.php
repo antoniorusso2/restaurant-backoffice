@@ -12,7 +12,7 @@
         <div class="w-full ">
             <form method="GET" action="{{ route('dishes.index') }}">
 
-                <div class="filter flex flex-col  md:flex-row md:items-end space-x-2">
+                <div class="filter flex flex-col  md:flex-row md:items-end md:space-x-2">
                     {{-- categoria --}}
                     <div class="filter-field">
                         <label for="category_id">
@@ -26,12 +26,12 @@
                     </div>
 
                     {{-- ricerca per nome --}}
-                    <div class="filter-field ">
+                    <div class="filter-field md:w-1/4">
                         <label for="filter">
                             Nome
                         </label>
 
-                        <x-forms.inputs.text name="filter" />
+                        <x-forms.inputs.text name="filter" placeholder="Inserisci il nome del piatto" />
                     </div>
 
 
