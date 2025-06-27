@@ -1,5 +1,7 @@
 # Restaurant Backoffice
 
+https://github.com/user-attachments/assets/eec8c7cb-e9b9-4e06-9dcf-912f01401395
+
 Backend e frontend per la gestione del backoffice di un ristorante, sviluppato con Laravel 12 e Vite. Il progetto integra un'API Laravel ed un frontend moderno basato su Alpine.js, Tailwind CSS e Blade.
 
 ---
